@@ -11,7 +11,7 @@ import { HomePage } from '../pages/home/home';
   templateUrl: "app.html"
 })
 export class MyApp {
-  rootPage: any = HomePage;
+  rootPage: any = null;
 
   constructor(
     public platform: Platform,
@@ -23,28 +23,27 @@ export class MyApp {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      statusBar.styleDefault();
-      splashScreen.hide();
+      
+      this.statusBar.styleDefault();
       this.createDatabase();
     });
   }
 
-  private createDatabase() {
-    this.sqlite
-      .create({
-        name: "bimbo.db",
-        location: "default" // the location field is required
-      })
-      .then(db => {
-        this.servicio1.setDatabase(db);
-        return this.servicio1.createTable();
-      })
-      .then(() =>{
-        this.splashScreen.hide();
-        this.rootPage = 'HomePage';
-      })
-      .catch(error =>{
-        console.error(error);
-      });
+  private createDatabase(){
+    this.sqlite.create({
+      name: 'data.db',
+      location: 'default' // the location field is required
+    })
+    .then((db) => {
+      this.servicio1.setDatabase(db);
+      return this.servicio1.createTable();
+    })
+    .then(() =>{
+      this.splashScreen.hide();
+      this.rootPage = HomePage;
+    })
+    .catch(error =>{
+      console.error(error);
+    });
   }
 }
