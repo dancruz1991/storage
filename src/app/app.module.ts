@@ -35,10 +35,10 @@ import { Servicio1Provider } from '../providers/servicio1/servicio1';
   ],
   providers: [
     StatusBar,
-    SQLite,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-    Servicio1Provider
+    SQLite,
+    Servicio1Provider,
+    {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
 export class AppModule {}

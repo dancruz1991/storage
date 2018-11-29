@@ -3,22 +3,22 @@ import { Platform } from "ionic-angular";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 
-import { TabsPage } from "../pages/tabs/tabs";
 import { SQLite } from "@ionic-native/sqlite";
 import { Servicio1Provider } from '../providers/servicio1/servicio1';
+import { HomePage } from '../pages/home/home';
 
 @Component({
   templateUrl: "app.html"
 })
 export class MyApp {
-  rootPage: any = TabsPage;
+  rootPage: any = HomePage;
 
   constructor(
-    public sqlite: SQLite,
     public platform: Platform,
-    statusBar: StatusBar,
-    splashScreen: SplashScreen,
-    public Servicio1Provider: Servicio1Provider
+    public statusBar: StatusBar,
+    public splashScreen: SplashScreen,
+    public servicio1: Servicio1Provider,
+    public sqlite: SQLite
   ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -36,9 +36,14 @@ export class MyApp {
         location: "default" // the location field is required
       })
       .then(db => {
-        console.log(db);
+        this.servicio1.setDatabase(db);
+        return this.servicio1.createTable();
       })
-      .catch(error => {
+      .then(() =>{
+        this.splashScreen.hide();
+        this.rootPage = 'HomePage';
+      })
+      .catch(error =>{
         console.error(error);
       });
   }
