@@ -11,6 +11,8 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { SQLite } from '@ionic-native/sqlite';
+import { Servicio1Provider } from '../providers/servicio1/servicio1';
 @NgModule({
   declarations: [
     MyApp,
@@ -33,8 +35,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   ],
   providers: [
     StatusBar,
+    SQLite,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    Servicio1Provider
   ]
 })
 export class AppModule {}
